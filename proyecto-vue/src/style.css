@@ -97,17 +97,6 @@ body {
   background-color: var(--danger-hover);
 }
 
-.stats-bar {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.75rem;
-  background-color: var(--bg-color);
-  border-radius: var(--radius);
-  margin-bottom: 1.5rem;
-  font-size: 0.875rem;
-  color: var(--text-muted);
-}
-
 .empty-message {
   text-align: center;
   padding: 2rem 0;
@@ -135,26 +124,8 @@ body {
   background-color: #f1f5f9;
 }
 
-.task-content {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  cursor: pointer;
-  flex: 1;
-}
-
-.task-checkbox {
-  width: 1.125rem;
-  height: 1.125rem;
-  cursor: pointer;
-  accent-color: var(--primary-color);
-}
-
 .task-text {
   font-size: 1rem;
+  color: var(--text-main);
 }
 
-.task-item.completed .task-text {
-  text-decoration: line-through;
-  color: var(--text-muted);
-}

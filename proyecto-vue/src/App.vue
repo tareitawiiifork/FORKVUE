@@ -1,13 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
-// Lista inicial de tareas de ejemplo
+// Lista inicial de tareas (sin propiedad de completado para esta rama)
 const tasks = ref([
-  { id: 1, text: 'Aprender conceptos básicos de Git', completed: true },
-  { id: 2, text: 'Crear una rama para una nueva funcionalidad', completed: false }
+  { id: 1, text: 'Aprender conceptos básicos de Git' },
+  { id: 2, text: 'Trabajar en la rama feat/nata-tareas' }
 ])
 
-// Campo para capturar el texto de la nueva tarea
+// Texto para la nueva tarea
 const newTaskText = ref('')
 
 // Agregar una nueva tarea a la lista
@@ -17,26 +17,16 @@ const addTask = () => {
 
   tasks.value.push({
     id: Date.now(),
-    text: text,
-    completed: false
+    text: text
   })
 
   newTaskText.value = ''
 }
 
-// Eliminar una tarea según su ID
+// Eliminar una tarea por su ID
 const removeTask = (id) => {
   tasks.value = tasks.value.filter(task => task.id !== id)
 }
-
-// Cambiar el estado de completado de una tarea
-const toggleTask = (task) => {
-  task.completed = !task.completed
-}
-
-// Contadores computados de tareas
-const totalTasks = computed(() => tasks.value.length)
-const completedTasks = computed(() => tasks.value.filter(t => t.completed).length)
 </script>
 
 <template>
@@ -45,7 +35,7 @@ const completedTasks = computed(() => tasks.value.filter(t => t.completed).lengt
       <h1>Sistema de Gestión de Tareas</h1>
     </header>
 
-    <!-- Formulario para agregar una nueva tarea -->
+    <!-- Formulario para agregar tareas -->
     <form @submit.prevent="addTask" class="task-form">
       <input
         v-model="newTaskText"
@@ -56,13 +46,7 @@ const completedTasks = computed(() => tasks.value.filter(t => t.completed).lengt
       <button type="submit" class="btn btn-add">Agregar</button>
     </form>
 
-    <!-- Resumen y estadísticas de tareas -->
-    <div class="stats-bar">
-      <span><strong>Total de tareas:</strong> {{ totalTasks }}</span>
-      <span><strong>Completadas:</strong> {{ completedTasks }} de {{ totalTasks }}</span>
-    </div>
-
-    <!-- Mensaje cuando la lista de tareas está vacía -->
+    <!-- Mensaje cuando no existen tareas -->
     <div v-if="tasks.length === 0" class="empty-message">
       <p>No hay tareas registradas. ¡Agrega la primera!</p>
     </div>
@@ -73,17 +57,8 @@ const completedTasks = computed(() => tasks.value.filter(t => t.completed).lengt
         v-for="task in tasks" 
         :key="task.id" 
         class="task-item"
-        :class="{ completed: task.completed }"
       >
-        <label class="task-content">
-          <input
-            type="checkbox"
-            :checked="task.completed"
-            @change="toggleTask(task)"
-            class="task-checkbox"
-          />
-          <span class="task-text">{{ task.text }}</span>
-        </label>
+        <span class="task-text">{{ task.text }}</span>
         
         <button 
           @click="removeTask(task.id)" 
@@ -96,3 +71,4 @@ const completedTasks = computed(() => tasks.value.filter(t => t.completed).lengt
     </ul>
   </div>
 </template>
+
